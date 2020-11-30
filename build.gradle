@@ -31,7 +31,7 @@ repositories {
 }
 
 dependencies {
-    compile('com.github.mouse0w0:coffeemaker:2.0.0') {
+    compile('com.github.mouse0w0:coffeemaker:3.0.0') {
         exclude module: 'asm-commons'
     }
 }

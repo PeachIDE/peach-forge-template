@@ -9,12 +9,12 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @ModifyAnnotation(type = Mod.EventBusSubscriber.class,
         values =
-        @ModifyAnnotation.Value(type = String.class, name = "modid", expression = "modid"))
+        @ModifyAnnotation.Value(type = String.class, name = "modid", expression = "metadata.id"))
 @TemplateClass
 @ModifySource(sourceFile = "Peach.generated")
 public class ModItems {
 
-    @DeclareFieldForeach(iterable = "items", elementName = "item")
+    @DeclareFieldForeach(iterable = "items", variableName = "item")
     public static Item EXAMPLE_ITEM;
 
     static {
@@ -27,7 +27,7 @@ public class ModItems {
     public static void registerItem(RegistryEvent.Register<Item> event) {
         IForgeRegistry<Item> registry = event.getRegistry();
         Markers.$foreach("items", "item");
-        registry.register(Markers.$staticField("item"));
+        registry.register(Markers.$getStaticField("item"));
         Markers.$endForeach();
     }
 }

@@ -16,32 +16,40 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @ModifySource(sourceFile = "Peach.generated")
 public class TemplateItemGroup extends CreativeTabs {
     @ModifyAnnotation(type = GameRegistry.ObjectHolder.class, values = {
-            @ModifyAnnotation.Value(type = String.class, name = "value", expression = "icon.id")
+            @ModifyAnnotation.Value(type = String.class, name = "value", expression = "itemGroup.icon.id")
     })
     private static final Item ICON = null;
 
     public TemplateItemGroup() {
-        super(Markers.$string("registerName"));
+        super(Markers.$string("itemGroup.registerName"));
     }
 
     @Override
     public String getTranslationKey() {
-        return Markers.$string("translationKey");
+        return Markers.$string("'itemGroup.' + metadata.id + '.' + itemGroup.registerName");
     }
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ICON, 1, Markers.$int("icon.metadata"));
+        return new ItemStack(ICON, 1, Markers.$int("itemGroup.icon.metadata"));
     }
 
     @Override
     public boolean hasSearchBar() {
-        return Markers.$bool("hasSearchBar");
+        return Markers.$bool("itemGroup.hasSearchBar");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public ResourceLocation getBackgroundImage() {
-        return new ResourceLocation(Markers.$string("background"));
+        return new ResourceLocation(Markers.$string("" +
+                "let SEARCH_BAR_BACKGROUND = 'textures/gui/container/creative_inventory/tab_item_search.png';" +
+                "let DEFAULT_BACKGROUND = 'textures/gui/container/creative_inventory/tab_items.png';" +
+                "if (str.length(itemGroup.background) > 0) " +
+                "{ " +
+                "return itemGroup.background; " +
+                "} else {" +
+                "return itemGroup.hasSearchBar ? SEARCH_BAR_BACKGROUND : DEFAULT_BACKGROUND;" +
+                "}"));
     }
 }

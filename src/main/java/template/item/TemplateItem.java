@@ -13,15 +13,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class TemplateItem extends Item {
 
     public TemplateItem() {
-        setRegistryName(Markers.$string("registerName"));
-        setTranslationKey(Markers.$string("translationKey"));
-        setCreativeTab(Markers.$staticField("itemGroup"));
-        setMaxStackSize(Markers.$int("maxStackSize"));
+        setRegistryName(Markers.$string("metadata.id + ':' + item.registerName"));
+        setTranslationKey(Markers.$string("metadata.id + '.' + item.registerName"));
+        setCreativeTab(Markers.$getStaticField("let ITEM_GROUP_CLASS = 'Lnet/minecraft/creativetab/CreativeTabs;';" +
+                "return newField(ITEM_GROUPS_CLASS, str.toUpperCase(item.itemGroup), ITEM_GROUP_CLASS);"));
+        setMaxStackSize(Markers.$int("item.maxStackSize"));
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
-        return Markers.$bool("hasEffect");
+        return Markers.$bool("item.hasEffect");
     }
 }

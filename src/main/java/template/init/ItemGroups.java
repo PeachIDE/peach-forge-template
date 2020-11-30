@@ -10,11 +10,11 @@ import net.minecraft.creativetab.CreativeTabs;
 @ModifySource(sourceFile = "Peach.generated")
 public class ItemGroups {
 
-    @DeclareFieldForeach(iterable = "", elementName = "itemGroup", expression = "itemGroup.field")
+    @DeclareFieldForeach(iterable = "itemGroups", variableName = "itemGroup", expression = "itemGroup.field")
     public static CreativeTabs MISC;
 
     static {
-        Markers.$foreach("", "itemGroup");
+        Markers.$foreach("itemGroups", "itemGroup");
         Markers.$setStaticField("itemGroup.field", find(Markers.$string("itemGroup.name")));
         Markers.$endForeach();
     }
