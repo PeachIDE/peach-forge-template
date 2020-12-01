@@ -47,7 +47,7 @@ public class TemplateItemGroup extends CreativeTabs {
                 "let DEFAULT_BACKGROUND = 'textures/gui/container/creative_inventory/tab_items.png';" +
                 "if (str.length(itemGroup.background) > 0) " +
                 "{ " +
-                "return itemGroup.background; " +
+                "return metadata.id + ':textures/' + itemGroup.background; " +
                 "} else {" +
                 "return itemGroup.hasSearchBar ? SEARCH_BAR_BACKGROUND : DEFAULT_BACKGROUND;" +
                 "}"));
