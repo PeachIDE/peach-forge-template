@@ -57,7 +57,7 @@ public class TemplateFood extends ItemFood {
     }
 
     public TemplateFood() {
-        super($int("item.hunger"), $float("item.saturation"), $bool("item.isWolfFood"));
+        super($int("item.hunger"), $float("item.saturation"), $bool("item.isWolfFood()"));
         setRegistryName($string("metadata.id + ':' + item.identifier"));
         setTranslationKey($string("metadata.id + '.' + item.identifier"));
         setCreativeTab($getStaticField("" +
