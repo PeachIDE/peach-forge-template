@@ -12,12 +12,14 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -31,7 +33,7 @@ import static com.github.mouse0w0.coffeemaker.template.Markers.*;
 
 @TemplateClass
 @ModifySource(sourceFile = "Peach.generated")
-public class TemplateItem extends Item {
+public class TemplateSword extends Item {
 
     private final Multimap<String, AttributeModifier> modifiers;
     private final Set<EnumEnchantmentType> acceptableEnchantments;
@@ -75,13 +77,13 @@ public class TemplateItem extends Item {
         $mapEnd();
     }
 
-    public TemplateItem() {
+    public TemplateSword() {
         setRegistryName($string("metadata.id + ':' + item.identifier"));
         setTranslationKey($string("metadata.id + '.' + item.identifier"));
         setCreativeTab($getStaticField("" +
                 "var Field = Java.type('com.github.mouse0w0.coffeemaker.template.Field');" +
                 "new Field(ITEM_GROUPS_CLASS, item.itemGroup.toUpperCase(), ITEM_GROUP_CLASS.getDescriptor());"));
-        setMaxStackSize($int("item.maxStackSize"));
+        setMaxStackSize(1);
         setMaxDamage($int("item.durability"));
 
         recipeRemain = REGISTRY.getObject(new ResourceLocation($string("item.recipeRemain.id")));
@@ -107,6 +109,19 @@ public class TemplateItem extends Item {
                         $int("modifier.operation.ordinal()")));
         $endForeach();
         this.modifiers = ImmutableMultimap.copyOf(modifiers);
+    }
+
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+        stack.damageItem(1, attacker);
+        return true;
+    }
+
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+        if ((double) state.getBlockHardness(worldIn, pos) != 0.0D) {
+            stack.damageItem(2, entityLiving);
+        }
+
+        return true;
     }
 
     @Override
