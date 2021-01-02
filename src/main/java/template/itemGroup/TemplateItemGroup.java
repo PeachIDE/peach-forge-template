@@ -21,12 +21,12 @@ public class TemplateItemGroup extends CreativeTabs {
     private static final Item ICON = null;
 
     public TemplateItemGroup() {
-        super(Markers.$string("itemGroup.registerName"));
+        super(Markers.$string("itemGroup.identifier"));
     }
 
     @Override
     public String getTranslationKey() {
-        return Markers.$string("'itemGroup.' + metadata.id + '.' + itemGroup.registerName");
+        return Markers.$string("'itemGroup.' + metadata.id + '.' + itemGroup.identifier");
     }
 
     @Override
@@ -43,13 +43,15 @@ public class TemplateItemGroup extends CreativeTabs {
     @SideOnly(Side.CLIENT)
     public ResourceLocation getBackgroundImage() {
         return new ResourceLocation(Markers.$string("" +
-                "let SEARCH_BAR_BACKGROUND = 'textures/gui/container/creative_inventory/tab_item_search.png';" +
-                "let DEFAULT_BACKGROUND = 'textures/gui/container/creative_inventory/tab_items.png';" +
-                "if (str.length(itemGroup.background) > 0) " +
-                "{ " +
-                "return metadata.id + ':textures/' + itemGroup.background; " +
-                "} else {" +
-                "return itemGroup.hasSearchBar ? SEARCH_BAR_BACKGROUND : DEFAULT_BACKGROUND;" +
+                "'use function';" +
+                "function main() {" +
+                "   var SEARCH_BAR_BACKGROUND = 'textures/gui/container/creative_inventory/tab_item_search.png';" +
+                "   var DEFAULT_BACKGROUND = 'textures/gui/container/creative_inventory/tab_items.png';" +
+                "   if (itemGroup.background.length > 0) {" +
+                "       return metadata.id + ':textures/' + itemGroup.background;" +
+                "   } else {" +
+                "       return itemGroup.hasSearchBar ? SEARCH_BAR_BACKGROUND : DEFAULT_BACKGROUND;" +
+                "   }" +
                 "}"));
     }
 }

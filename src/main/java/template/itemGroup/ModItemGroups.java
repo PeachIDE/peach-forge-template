@@ -8,8 +8,8 @@ import com.github.mouse0w0.coffeemaker.template.TemplateClass;
 @ModifySource(sourceFile = "Peach.generated")
 public class ModItemGroups {
     public static void init() {
-        Markers.$foreach("classes", "class");
-        Markers.$new("class");
+        Markers.$foreach("classes", "itemGroup");
+        Markers.$new("itemGroup");
         Markers.$endForeach();
     }
 }
